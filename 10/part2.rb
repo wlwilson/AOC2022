@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+require 'pry'
 
 cycle=1
 x=1
@@ -8,7 +9,7 @@ display=""
 def printPixel (display, value, cycle)
   pos=display.length
   #puts "pp: #{cycle}"
-  if (pos-value).abs<=1 then
+  if ((pos%40)-value).abs<=1 then
     puts "Drawing pixel # in position #{pos}, cycle is #{cycle} sprite has value #{value}"
     #puts "######################################!!!!"
     return "#"
@@ -18,7 +19,7 @@ def printPixel (display, value, cycle)
   end
 end
 
-File.readlines('test').each do |ins|
+File.readlines('input').each do |ins|
     #puts "Start cycle #{cycle}, drawing pixel in position #{display.length} X: #{x}, Strength: #{cycle*x}"
     #puts "instruction #{ins}"
     case ins
@@ -36,10 +37,9 @@ File.readlines('test').each do |ins|
         x+=$1.to_i
         puts "pos: #{x}"
     end
+    #binding.pry
 end
 
 display.split("").each_slice(40) do |sl|
     puts "#{sl.join}"
 end
-
-#I'm lazy: ./part1.rb | grep -e "Cycle 20," -e "Cycle 60," -e "le 100," -e "le 140," -e "le 180," -e "le 220," | awk '{ print $6 }' | paste -s -d"+" | bc
