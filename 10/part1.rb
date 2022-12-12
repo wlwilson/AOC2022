@@ -18,3 +18,4 @@ File.readlines('input').each do |ins|
         x+=$1.to_i
     end
 end
+#I'm lazy: ./part1.rb | grep -e "Cycle 20," -e "Cycle 60," -e "le 100," -e "le 140," -e "le 180," -e "le 220," | awk '{ print $6 }' | paste -s -d"+" | bc
