@@ -4,7 +4,7 @@ infile='test'
 cmds=File.readlines(infile)
 
 readingFiles=0
-fs=Hash.new()
+fs=Array.new()
 cwd=Array.new()
 
 
@@ -17,22 +17,28 @@ cmds.each do |cmd|
        else
           puts "cd to #{$1}"   
           cwd.push($1)  
+          puts "pwd is #{cwd}"
+          dir=Array[$1]
+          puts "dir is #{dir}"
+          fs[cwd].push(dir)
        end
     when /^\$ cd ../
     when /^\$ ls/
        readingFiles=1
     when /(\d+) (\w+)/
         puts "file #{$2} has size #{$1}"
+        puts "Currently fs is #{fs}"
         file={$2=>$1}
-        fs[cwd]=file
+        fs[cwd].push(file)
+        puts "Adding file #{$2} with size #{$1}"
     when /dir (\w+)/
         puts "directory #{$1}"
-        fs[cwd]=""
+        #fs[cwd]=$1
     else
         puts "unknown command #{cmd}"
     end
-    puts "#{cwd}"
+    puts "cwd: #{cwd}"
 end
 
 puts "#{fs}"
-binding.pry()
+#binding.pry()
